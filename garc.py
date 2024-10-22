@@ -68,6 +68,7 @@ class GARC(object):
         self.block_num = 4
         self.total_block_size = 0
         self.file_size = 0
+        self.max_data_size = 0
         self.faob = self.FileAllocationOffsetBlock()
         self.fatb = self.FileAllocationTableBlock()
         self.fimb = self.FileImageBlock()
@@ -80,6 +81,8 @@ class GARC(object):
         f.seek(2,1)
         self.total_block_size = u32(f)
         self.file_size = u32(f)
+        if(self.version > 516):
+            self.max_data_size = u32(f)
         self.faob.read(f)
         self.fatb.read(f)
         self.fimb.read(f)
